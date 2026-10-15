@@ -1,0 +1,52 @@
+#Building Your First Neural Network
+#To design, train, and evaluate a Multi-Layer Perceptron (MLP) for handwritten digit classification.from sklearn.datasets import load_digits
+
+
+from sklearn.model_selection import train_test_split
+from sklearn.neural_network import MLPClassifier
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import make_pipeline
+from sklearn.metrics import accuracy_score
+
+# Load handwritten digit images
+digits = load_digits()
+X = digits.data
+y = digits.target
+
+# Split data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+
+# Create the neural network pipeline
+model = make_pipeline(
+    StandardScaler(),
+    MLPClassifier(
+        hidden_layer_sizes=(64,),
+        max_iter=500,
+        random_state=42
+    )
+)
+
+# Train the model
+model.fit(X_train, y_train)
+
+# Predict the test labels
+predictions = model.predict(X_test)
+
+# Evaluate the model
+accuracy = accuracy_score(y_test, predictions)
+
+print("Actual digits:", y_test[:10])
+print("Predicted digits:", predictions[:10])
+print("Accuracy:", round(accuracy * 100, 2), "%")
+
+#Explanation
+#load_digits() loads a dataset of handwritten digit images from 0 to 9.
+#X contains the image features, and y contains the correct digit labels.
+#train_test_split() divides the data into training and testing sets.
+#StandardScaler() scales the input features to help the neural network train effectively.
+#MLPClassifier() creates a neural network with one hidden layer containing 64 neurons.
+#model.fit() trains the model using the training data.
+#model.predict() predicts the digits in the test set.
+#accuracy_score() calculates the proportion of correct predictions.
