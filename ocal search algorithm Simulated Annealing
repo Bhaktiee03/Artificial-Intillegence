@@ -1,0 +1,43 @@
+#Optimization with Local Search
+#To apply local search algorithm Simulated Annealing to solve an optimization problem.
+
+import math
+import random
+
+def objective(x):
+    return -(x - 5) ** 2 + 25
+
+current = random.uniform(0, 10)
+best = current
+temperature = 100
+
+while temperature > 0.01:
+    neighbor = current + random.uniform(-1, 1)
+    neighbor = max(0, min(10, neighbor))
+
+    change = objective(neighbor) - objective(current)
+
+    if change > 0 or random.random() < math.exp(
+        change / temperature
+    ):
+        current = neighbor
+
+    if objective(current) > objective(best):
+        best = current
+
+    temperature *= 0.95
+
+print("Best solution:", round(best, 3))
+print("Maximum value:", round(objective(best), 3))
+
+#Explanation
+#The objective(x) function calculates the value of the function being maximized.
+#current represents the randomly selected starting solution.
+#best stores the best solution found so far.
+#temperature controls the probability of accepting worse solutions.
+#neighbor represents a nearby candidate solution.
+#change measures the difference between the candidate's value and the current value.
+#If change > 0, the candidate is better and is accepted.
+#A worse candidate may also be accepted with probability e Δ/T, where Δ is the change in objective value and T is the temperature.
+#temperature *= 0.95 gradually reduces the temperature.
+#The program prints the best solution and its objective value.
