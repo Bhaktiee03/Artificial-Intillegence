@@ -1,0 +1,57 @@
+#NLP for Sentiment Analysis
+#To build a text classification pipeline that classifies sentences as positive or negative.
+
+
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.linear_model import LogisticRegression
+from sklearn.pipeline import make_pipeline
+
+# Training data
+texts = [
+    "I love this movie",
+    "This film is excellent",
+    "The product is amazing",
+    "I am very happy",
+    "I hate this movie",
+    "This film is terrible",
+    "The product is awful",
+    "I am very disappointed"
+]
+
+labels = [
+    "Positive", "Positive", "Positive", "Positive",
+    "Negative", "Negative", "Negative", "Negative"
+]
+
+# Create the sentiment analysis pipeline
+model = make_pipeline(
+    TfidfVectorizer(),
+    LogisticRegression(max_iter=1000)
+)
+
+# Train the model
+model.fit(texts, labels)
+
+# Test sentences
+test_texts = [
+    "I love this film",
+    "This product is terrible"
+]
+
+# Predict sentiment
+predictions = model.predict(test_texts)
+
+for text, sentiment in zip(test_texts, predictions):
+    print("Text:", text)
+    print("Sentiment:", sentiment)
+    print()
+
+#Explanation
+#texts contains example sentences used for training.
+#labels contains the corresponding sentiment categories.
+#TfidfVectorizer() converts text into numerical features based on word importance.
+#LogisticRegression() learns to classify the numerical features as positive or negative.
+#make_pipeline() combines text feature extraction and classification into one pipeline.
+#model.fit() trains the pipeline using the labeled sentences.
+#model.predict() predicts the sentiment of new sentences.
+#The for loop displays each sentence with its predicted sentiment.
