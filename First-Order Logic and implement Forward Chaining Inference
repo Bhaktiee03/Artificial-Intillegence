@@ -1,0 +1,38 @@
+#Building a Logical Knowledge Base
+#To represent knowledge using First-Order Logic and implement Forward Chaining Inference Engine
+
+facts = {("Human", "Socrates")}
+
+rules = [
+    ("Human", "Mortal")
+]
+
+changed = True
+
+while changed:
+    changed = False
+
+    for condition, conclusion in rules:
+        for fact in list(facts):
+            if fact[0] == condition:
+                new_fact = (conclusion, fact[1])
+
+                if new_fact not in facts:
+                    facts.add(new_fact)
+                    changed = True
+
+print("Knowledge Base:")
+
+for predicate, person in sorted(facts):
+    print(person, "is", predicate)
+
+
+#Explanation
+#facts contains the initial knowledge: Socrates is human.
+#rules contains the inference rule: if someone is human, that person is mortal.
+#The changed variable tracks whether a new fact has been discovered.
+#The while loop repeats the inference process until no new facts are generated.
+#The for loop checks each rule against the known facts.
+#If a fact matches the rule's condition, the program creates a new fact.
+#The new fact is added to the knowledge base if it does not already exist.
+#Finally, the program prints all known facts.
