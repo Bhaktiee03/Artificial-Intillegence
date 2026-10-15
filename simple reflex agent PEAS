@@ -1,0 +1,29 @@
+# Simple Reflex Agent 
+#concept of PEAS
+
+grid = ["Dirty", "Clean", "Dirty", "Dirty"]
+position = 0
+
+while position < len(grid):
+    print("Agent at position:", position)
+
+    if grid[position] == "Dirty":
+        grid[position] = "Clean"
+        print("Action: Clean")
+    else:
+        print("Action: Move")
+
+    position += 1
+
+print("Final Environment:", grid)
+print("All cells are clean!")
+
+#Explanation
+
+#grid represents four cells. Some cells are dirty, while others are clean.
+#position = 0 places the agent at the first cell.
+#The while loop allows the agent to visit each cell.
+#The if statement checks whether the current cell is dirty.
+#If dirty, the agent cleans it. Otherwise, it prints the move action.
+#position += 1 moves the agent to the next cell.
+#Finally, the program displays the cleaned environment.
